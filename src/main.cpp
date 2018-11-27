@@ -157,7 +157,7 @@ This is the rutrn results:
       {
 
         bool i = loadNextBox();
-        if (i == 0) //we we are at max ee addr
+        if (i == 0) //we we are at max eeprom addr
         {
           runSwitchAgain = 0;
           Serial.println(F("ItemID not stored"));
@@ -249,7 +249,7 @@ void calScale()
   scale.tare(); //Reset the scale to 0
 
   long zero_factor = scale.read_average(); //Get a baseline reading
-  Serial.print(F("Zero factor: "));           //This can be used to remove the need to tare the scale. Useful in permanent scale projects.
+  Serial.print(F("Zero factor: "));        //This can be used to remove the need to tare the scale. Useful in permanent scale projects.
   Serial.println(zero_factor);
 
   //=============================================================================================
@@ -364,7 +364,7 @@ This is the rutrn results:
 
   //Does the itemID match?
   Serial.print(F("eeaddr: "));
-      Serial.println(eeAddr);
+  Serial.println(eeAddr);
   Serial.print(F("box.itemID: "));
   Serial.print(box.itemID);
   Serial.print(F(" with seize: "));
@@ -411,6 +411,8 @@ void eepromStuff()
 {
 
   String Stemp = barcodeScanner();
+  char toBeMatched[15];
+
   Serial.println(F("*****EEPROM stuff!*****"));
   while (buttonState != 0)
   {
@@ -422,14 +424,14 @@ void eepromStuff()
   lcd.print("Choose program: ");
   lcd.print(eeAddr / 10);
   lcd.setCursor(0, 3);
-  lcd.print("Click when done");
+  lcd.print("Click to proceed");
   int oldEncPos = 0;
   lcd.setCursor(0, 1);
   lcd.print("ID: ");
   lcd.setCursor(0, 2);
   lcd.print("Kg: ");
   oldEncPos = encPos - 1;
-  while (buttonState != 5) //wwhile not clicked
+  while (buttonState != 5) //while not clicked
   {
     buttonState = encoder.getButton();
     if (buttonState != 0)
@@ -453,6 +455,7 @@ void eepromStuff()
       oldEncPos = encPos;
       EEPROM.get(eeAddr, box);
       delay(7);
+
       lcd.setCursor(4, 1);
       lcd.print("               ");
       lcd.setCursor(4, 1);
@@ -460,7 +463,8 @@ void eepromStuff()
       lcd.setCursor(4, 2);
       lcd.print("               ");
       lcd.setCursor(4, 2);
-      lcd.print(box.itemWeight,3);
+      lcd.print(box.itemWeight, 3);
+
       Serial.print(F("eeaddr: : "));
       Serial.println(eeAddr);
       Serial.print(F("box.itemID: "));
@@ -475,7 +479,7 @@ void eepromStuff()
   lcd.print("Put weight and scan");
   Serial.println(F("Waiting for scan"));
 
-  while (Stemp != "no")
+  while (Stemp != "no") //keep polling until we have a "fresh" scan
   {
     //Serial.println(Stemp.length());
     Stemp = barcodeScanner();
@@ -517,16 +521,15 @@ void eepromStuff()
   Serial.println(box.itemWeight);
   Serial.println();
 
-  delay(200);
-
   Serial.println(F("Reading from eeprom"));
   EEPROM.get(eeAddr, box);
   Serial.print(F("box.itemID: "));
   Serial.println(box.itemID);
   Serial.print(F("box.itemWeight: "));
   Serial.println(box.itemWeight);
-  delay(100);
-  if (Stemp != box.itemID)
+
+  if (strcmp(toBeMatched, box.itemID) != 0)
+  // if (Stemp != box.itemID)
   {
     Serial.println(F("ID not stored"));
   }
