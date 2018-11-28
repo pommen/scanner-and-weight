@@ -694,7 +694,7 @@ void EEPROMauto()
     Serial.print(F("box.itemID: "));
     Serial.println(box.itemID);
     Serial.print(F("box.itemWeight: "));
-    Serial.println(box.itemWeight,3);
+    Serial.println(box.itemWeight, 3);
     Serial.println();
 
     Serial.println(F("Reading from eeprom"));
@@ -702,7 +702,7 @@ void EEPROMauto()
     Serial.print(F("box.itemID: "));
     Serial.println(box.itemID);
     Serial.print(F("box.itemWeight: "));
-    Serial.println(box.itemWeight,3);
+    Serial.println(box.itemWeight, 3);
 
     if (strcmp(toBeMatched, box.itemID) != 0)
     // if (Stemp != box.itemID)
@@ -775,14 +775,14 @@ void EEPROMauto()
     {
 
       lcd.clear();
-      lcd.print("update ok");
+      lcd.print("EEPROM write ok");
       Serial.println(F("Eeprom looks good"));
+      delay(1500);
     }
     Serial.print(F("seize:"));
     Serial.println(sizeof(box));
 
     Serial.println(F("*****EEPROM done*****"));
-    delay(1000);
     lcd.clear();
 
     LCDDefults();
@@ -949,14 +949,14 @@ void EEPROMmanual()
   {
 
     lcd.clear();
-    lcd.print("update ok");
+    lcd.print("EEPROM write ok");
     Serial.println(F("Eeprom looks good"));
+    delay(1500);
   }
   Serial.print(F("seize:"));
   Serial.println(sizeof(box));
 
   Serial.println(F("*****EEPROM done*****"));
-  delay(1000);
   lcd.clear();
 
   LCDDefults();
