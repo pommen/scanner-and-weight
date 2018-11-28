@@ -1334,10 +1334,10 @@ F 3 "" H 8000 1300 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Connector:Screw_Terminal_01x02 J?
+L Connector:Screw_Terminal_01x02 J3
 U 1 1 5C01EEE0
 P 1050 6900
-F 0 "J?" H 970 6575 50  0000 C CNN
+F 0 "J3" H 970 6575 50  0000 C CNN
 F 1 "Screw_Terminal_01x02" H 1200 7050 50  0000 C CNN
 F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" H 1050 6900 50  0001 C CNN
 F 3 "~" H 1050 6900 50  0001 C CNN
@@ -1345,10 +1345,10 @@ F 3 "~" H 1050 6900 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Connector:Screw_Terminal_01x04 J?
+L Connector:Screw_Terminal_01x04 J2
 U 1 1 5C01F096
 P 1050 6500
-F 0 "J?" H 970 6075 50  0000 C CNN
+F 0 "J2" H 970 6075 50  0000 C CNN
 F 1 "Screw_Terminal_01x04" H 970 6166 50  0000 C CNN
 F 2 "TerminalBlock:TerminalBlock_bornier-4_P5.08mm" H 1050 6500 50  0001 C CNN
 F 3 "~" H 1050 6500 50  0001 C CNN
