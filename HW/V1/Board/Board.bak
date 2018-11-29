@@ -412,41 +412,30 @@ SCL
 $Comp
 L power:+5V #PWR0120
 U 1 1 5BF1D8E1
-P 5000 750
-F 0 "#PWR0120" H 5000 600 50  0001 C CNN
-F 1 "+5V" H 5015 923 50  0000 C CNN
-F 2 "" H 5000 750 50  0001 C CNN
-F 3 "" H 5000 750 50  0001 C CNN
-	1    5000 750 
-	1    0    0    -1  
+P 5300 700
+F 0 "#PWR0120" H 5300 550 50  0001 C CNN
+F 1 "+5V" H 5315 873 50  0000 C CNN
+F 2 "" H 5300 700 50  0001 C CNN
+F 3 "" H 5300 700 50  0001 C CNN
+	1    5300 700 
+	-1   0    0    -1  
 $EndComp
-Text GLabel 8000 900  2    50   Input ~ 0
+Text GLabel 6000 900  2    50   Input ~ 0
 BTN
 $Comp
 L Device:R_Network05 RN1
 U 1 1 5BF1F93C
-P 5200 950
-F 0 "RN1" H 5480 996 50  0000 L CNN
-F 1 "R_Network05" H 5480 905 50  0000 L CNN
-F 2 "Resistor_THT:R_Array_SIP6" V 5575 950 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 5200 950 50  0001 C CNN
-	1    5200 950 
-	1    0    0    -1  
+P 5700 1400
+F 0 "RN1" H 5980 1446 50  0000 L CNN
+F 1 "R_Network05" H 5650 1600 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP6" V 6075 1400 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 5700 1400 50  0001 C CNN
+	1    5700 1400
+	-1   0    0    1   
 $EndComp
-$Comp
-L power:GND #PWR0122
-U 1 1 5BF209E0
-P 8000 1200
-F 0 "#PWR0122" H 8000 950 50  0001 C CNN
-F 1 "GND" H 8000 1050 50  0000 C CNN
-F 2 "" H 8000 1200 50  0001 C CNN
-F 3 "" H 8000 1200 50  0001 C CNN
-	1    8000 1200
-	0    -1   -1   0   
-$EndComp
-Text GLabel 8000 1100 2    50   Input ~ 0
+Text GLabel 6000 1100 2    50   Input ~ 0
 ENCA
-Text GLabel 8000 1000 2    50   Input ~ 0
+Text GLabel 6000 1000 2    50   Input ~ 0
 ENCB
 Text GLabel 3950 3450 0    50   Input ~ 0
 BTN
@@ -454,12 +443,6 @@ Text GLabel 3950 3750 0    50   Input ~ 0
 ENCB
 Text GLabel 3950 4050 0    50   Input ~ 0
 ENCA
-Text GLabel 5200 1150 3    50   Input ~ 0
-ENCA
-Text GLabel 5100 1150 3    50   Input ~ 0
-ENCB
-Text GLabel 5000 1150 3    50   Input ~ 0
-BTN
 $Comp
 L 74xx:74HC14 U2
 U 1 1 5BF2790A
@@ -1138,7 +1121,7 @@ F 1 "BSS138" H 2006 5795 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 2000 5675 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 1800 5750 50  0001 L CNN
 	1    1800 5750
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	2000 5500 2000 5750
@@ -1154,7 +1137,7 @@ F 1 "BSS138" H 3206 5945 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 3200 5825 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 3000 5900 50  0001 L CNN
 	1    3000 5900
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 Connection ~ 3200 5900
 Wire Wire Line
@@ -1168,7 +1151,7 @@ F 1 "BSS138" H 4356 6045 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 4350 5925 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 4150 6000 50  0001 L CNN
 	1    4150 6000
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 Connection ~ 4350 6000
 Wire Wire Line
@@ -1182,7 +1165,7 @@ F 1 "BSS138" H 5456 5945 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 5450 5825 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 5250 5900 50  0001 L CNN
 	1    5250 5900
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Transistor_FET:BSS138 Q8
@@ -1314,24 +1297,13 @@ $EndComp
 $Comp
 L Connector:Conn_01x05_Male enc1
 U 1 1 5C01B864
-P 7800 1100
-F 0 "enc1" H 7906 1478 50  0000 C CNN
-F 1 "Rot_enc" H 7906 1387 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical" H 7800 1100 50  0001 C CNN
-F 3 "~" H 7800 1100 50  0001 C CNN
-	1    7800 1100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0121
-U 1 1 5C01DE92
-P 8000 1300
-F 0 "#PWR0121" H 8000 1050 50  0001 C CNN
-F 1 "GND" H 8000 1150 50  0000 C CNN
-F 2 "" H 8000 1300 50  0001 C CNN
-F 3 "" H 8000 1300 50  0001 C CNN
-	1    8000 1300
-	0    -1   -1   0   
+P 5100 900
+F 0 "enc1" V 4900 1000 50  0000 C CNN
+F 1 "Rot_enc" V 5000 950 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical" H 5100 900 50  0001 C CNN
+F 3 "~" H 5100 900 50  0001 C CNN
+	1    5100 900 
+	1    0    0    1   
 $EndComp
 $Comp
 L Connector:Screw_Terminal_01x02 J3
@@ -1355,4 +1327,58 @@ F 3 "~" H 1050 6500 50  0001 C CNN
 	1    1050 6500
 	-1   0    0    1   
 $EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BFED80C
+P 6400 3350
+F 0 "#PWR?" H 6400 3100 50  0001 C CNN
+F 1 "GND" H 6405 3177 50  0000 C CNN
+F 2 "" H 6400 3350 50  0001 C CNN
+F 3 "" H 6400 3350 50  0001 C CNN
+	1    6400 3350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BFED902
+P 6400 3450
+F 0 "#PWR?" H 6400 3200 50  0001 C CNN
+F 1 "GND" H 6405 3277 50  0000 C CNN
+F 2 "" H 6400 3450 50  0001 C CNN
+F 3 "" H 6400 3450 50  0001 C CNN
+	1    6400 3450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0122
+U 1 1 5BF209E0
+P 5900 1600
+F 0 "#PWR0122" H 5900 1350 50  0001 C CNN
+F 1 "GND" H 5900 1450 50  0000 C CNN
+F 2 "" H 5900 1600 50  0001 C CNN
+F 3 "" H 5900 1600 50  0001 C CNN
+	1    5900 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 900  5700 900 
+Wire Wire Line
+	5300 1000 5800 1000
+Wire Wire Line
+	5300 1100 5900 1100
+Wire Wire Line
+	5900 1200 5900 1100
+Connection ~ 5900 1100
+Wire Wire Line
+	5900 1100 6000 1100
+Wire Wire Line
+	5800 1200 5800 1000
+Connection ~ 5800 1000
+Wire Wire Line
+	5800 1000 6000 1000
+Wire Wire Line
+	5700 1200 5700 900 
+Connection ~ 5700 900 
+Wire Wire Line
+	5700 900  6000 900 
 $EndSCHEMATC
