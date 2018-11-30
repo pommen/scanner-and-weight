@@ -35,17 +35,6 @@ F 12 "Active" H 3550 2800 60  0001 L CNN "Status"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Barrel_Jack J1
-U 1 1 5BF175EA
-P 1650 1600
-F 0 "J1" H 1705 1925 50  0000 C CNN
-F 1 "Barrel_Jack" H 1705 1834 50  0000 C CNN
-F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 1700 1560 50  0001 C CNN
-F 3 "~" H 1700 1560 50  0001 C CNN
-	1    1650 1600
-	1    0    0    -1  
-$EndComp
-$Comp
 L MCU_Module:Arduino_Nano_v2.x A1
 U 1 1 5BF176CE
 P 5900 3350
@@ -92,12 +81,12 @@ $EndComp
 $Comp
 L power:GND #PWR0102
 U 1 1 5BF19330
-P 2000 1850
-F 0 "#PWR0102" H 2000 1600 50  0001 C CNN
-F 1 "GND" H 2005 1677 50  0000 C CNN
-F 2 "" H 2000 1850 50  0001 C CNN
-F 3 "" H 2000 1850 50  0001 C CNN
-	1    2000 1850
+P 2000 1750
+F 0 "#PWR0102" H 2000 1500 50  0001 C CNN
+F 1 "GND" H 2005 1577 50  0000 C CNN
+F 2 "" H 2000 1750 50  0001 C CNN
+F 3 "" H 2000 1750 50  0001 C CNN
+	1    2000 1750
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -145,7 +134,7 @@ F 3 "~" H 2750 1650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2000 1700 2000 1850
+	2000 1600 2000 1750
 Wire Wire Line
 	2400 1500 2750 1500
 Wire Wire Line
@@ -204,21 +193,6 @@ F 3 "" H 9100 2800 50  0001 C CNN
 	1    9100 2800
 	0    -1   -1   0   
 $EndComp
-$Comp
-L power:GND #PWR0108
-U 1 1 5BF19BED
-P 9350 3250
-F 0 "#PWR0108" H 9350 3000 50  0001 C CNN
-F 1 "GND" H 9355 3077 50  0000 C CNN
-F 2 "" H 9350 3250 50  0001 C CNN
-F 3 "" H 9350 3250 50  0001 C CNN
-	1    9350 3250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9400 3200 9350 3200
-Wire Wire Line
-	9350 3200 9350 3250
 Wire Wire Line
 	9400 2800 9100 2800
 $Comp
@@ -345,12 +319,12 @@ Wire Wire Line
 $Comp
 L power:+5V #PWR0116
 U 1 1 5BF1B326
-P 9050 4950
-F 0 "#PWR0116" H 9050 4800 50  0001 C CNN
-F 1 "+5V" H 9065 5123 50  0000 C CNN
-F 2 "" H 9050 4950 50  0001 C CNN
-F 3 "" H 9050 4950 50  0001 C CNN
-	1    9050 4950
+P 8450 5250
+F 0 "#PWR0116" H 8450 5100 50  0001 C CNN
+F 1 "+5V" H 8465 5423 50  0000 C CNN
+F 2 "" H 8450 5250 50  0001 C CNN
+F 3 "" H 8450 5250 50  0001 C CNN
+	1    8450 5250
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -397,9 +371,9 @@ F 3 "" H 10400 4850 50  0001 C CNN
 	1    10400 4850
 	1    0    0    -1  
 $EndComp
-Text GLabel 9400 2900 0    50   Input ~ 0
+Text GLabel 9400 2700 0    50   Input ~ 0
 scannerCLK
-Text GLabel 9400 2500 0    50   Input ~ 0
+Text GLabel 9400 3100 0    50   Input ~ 0
 scannerDATA
 Text GLabel 5300 3050 0    50   Input ~ 0
 scannerDATA
@@ -661,27 +635,16 @@ L Device:Fuse_Small F1
 U 1 1 5BF3BAF0
 P 2150 1500
 F 0 "F1" H 2150 1685 50  0000 C CNN
-F 1 "30V/1100mA" H 2200 1400 50  0000 C CNN
+F 1 "30V/1100mA" H 2150 1800 50  0000 C CNN
 F 2 "Fuse:Fuse_2920_7451Metric_Pad2.10x5.45mm_HandSolder" H 2150 1500 50  0001 C CNN
 F 3 "~" H 2150 1500 50  0001 C CNN
 	1    2150 1500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1950 1700 2000 1700
+	1950 1600 2000 1600
 Wire Wire Line
 	1950 1500 2050 1500
-$Comp
-L Connector:DB9_Male_MountingHoles J4
-U 1 1 5BF3F8D9
-P 9700 2800
-F 0 "J4" H 9880 2803 50  0000 L CNN
-F 1 "ToScanner" H 9880 2712 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm" H 9700 2800 50  0001 C CNN
-F 3 " ~" H 9700 2800 50  0001 C CNN
-	1    9700 2800
-	1    0    0    -1  
-$EndComp
 Text GLabel 5400 3850 0    50   Input ~ 0
 L3
 Text GLabel 5400 3750 0    50   Input ~ 0
@@ -705,14 +668,14 @@ U 1 1 5BFE0558
 P 1350 5100
 F 0 "Q1" H 1556 5054 50  0000 L CNN
 F 1 "IRF7306TRPBF" V 1600 5200 50  0000 L CNN
-F 2 "Package_SO:SO-8_5.3x6.2mm_P1.27mm" H 1850 5050 50  0001 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 1850 5050 50  0001 C CNN
 F 3 "http://192.168.0.101/api/part_attachments/1126/getFile" H 1950 5150 50  0001 C CNN
 	1    1350 5100
 	-1   0    0    1   
 $EndComp
 Text GLabel 5400 3950 0    50   Input ~ 0
 L4
-Text GLabel 5400 4050 0    50   Input ~ 0
+Text GLabel 4500 4400 0    50   Input ~ 0
 Buzzer
 $Comp
 L power:+24V #PWR0131
@@ -794,7 +757,7 @@ U 2 1 5BFF0148
 P 2550 5250
 F 0 "Q1" H 2756 5204 50  0000 L CNN
 F 1 "IRF7306TRPBF" V 2800 5350 50  0000 L CNN
-F 2 "Package_SO:SO-8_5.3x6.2mm_P1.27mm" H 3050 5200 50  0001 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3050 5200 50  0001 C CNN
 F 3 "http://192.168.0.101/api/part_attachments/1126/getFile" H 3150 5300 50  0001 C CNN
 	2    2550 5250
 	-1   0    0    1   
@@ -844,7 +807,7 @@ U 1 1 5BFF2D52
 P 3700 5250
 F 0 "Q4" H 3906 5204 50  0000 L CNN
 F 1 "IRF7306TRPBF" V 3906 5295 50  0000 L CNN
-F 2 "Package_SO:SO-8_5.3x6.2mm_P1.27mm" H 4200 5200 50  0001 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4200 5200 50  0001 C CNN
 F 3 "http://192.168.0.101/api/part_attachments/1126/getFile" H 4300 5300 50  0001 C CNN
 	1    3700 5250
 	-1   0    0    1   
@@ -894,7 +857,7 @@ U 2 1 5BFF4A02
 P 4800 5200
 F 0 "Q4" H 5006 5154 50  0000 L CNN
 F 1 "IRF7306TRPBF" V 5006 5245 50  0000 L CNN
-F 2 "Package_SO:SO-8_5.3x6.2mm_P1.27mm" H 5300 5150 50  0001 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 5300 5150 50  0001 C CNN
 F 3 "http://192.168.0.101/api/part_attachments/1126/getFile" H 5400 5250 50  0001 C CNN
 	2    4800 5200
 	-1   0    0    1   
@@ -944,7 +907,7 @@ U 1 1 5BFF780A
 P 6150 5450
 F 0 "Q7" H 6356 5404 50  0000 L CNN
 F 1 "IRF7306TRPBF" V 6356 5495 50  0000 L CNN
-F 2 "Package_SO:SO-8_5.3x6.2mm_P1.27mm" H 6650 5400 50  0001 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6650 5400 50  0001 C CNN
 F 3 "http://192.168.0.101/api/part_attachments/1126/getFile" H 6750 5500 50  0001 C CNN
 	1    6150 5450
 	-1   0    0    1   
@@ -1118,7 +1081,7 @@ U 1 1 5C00B651
 P 1800 5750
 F 0 "Q2" H 2006 5704 50  0000 L CNN
 F 1 "BSS138" H 2006 5795 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 2000 5675 50  0001 L CIN
+F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 2000 5675 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 1800 5750 50  0001 L CNN
 	1    1800 5750
 	-1   0    0    -1  
@@ -1134,7 +1097,7 @@ U 1 1 5C00F29C
 P 3000 5900
 F 0 "Q3" H 3206 5854 50  0000 L CNN
 F 1 "BSS138" H 3206 5945 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3200 5825 50  0001 L CIN
+F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 3200 5825 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 3000 5900 50  0001 L CNN
 	1    3000 5900
 	-1   0    0    -1  
@@ -1148,7 +1111,7 @@ U 1 1 5C00F332
 P 4150 6000
 F 0 "Q5" H 4356 5954 50  0000 L CNN
 F 1 "BSS138" H 4356 6045 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 4350 5925 50  0001 L CIN
+F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 4350 5925 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 4150 6000 50  0001 L CNN
 	1    4150 6000
 	-1   0    0    -1  
@@ -1162,7 +1125,7 @@ U 1 1 5C00F3C0
 P 5250 5900
 F 0 "Q6" H 5456 5854 50  0000 L CNN
 F 1 "BSS138" H 5456 5945 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5450 5825 50  0001 L CIN
+F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 5450 5825 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 5250 5900 50  0001 L CNN
 	1    5250 5900
 	-1   0    0    -1  
@@ -1173,10 +1136,10 @@ U 1 1 5C00F446
 P 6600 6050
 F 0 "Q8" H 6806 6004 50  0000 L CNN
 F 1 "BSS138" H 6806 6095 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 6800 5975 50  0001 L CIN
+F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 6800 5975 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 6600 6050 50  0001 L CNN
 	1    6600 6050
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H1
@@ -1328,10 +1291,10 @@ F 3 "~" H 1050 6500 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0121
 U 1 1 5BFED80C
 P 6400 3350
-F 0 "#PWR?" H 6400 3100 50  0001 C CNN
+F 0 "#PWR0121" H 6400 3100 50  0001 C CNN
 F 1 "GND" H 6405 3177 50  0000 C CNN
 F 2 "" H 6400 3350 50  0001 C CNN
 F 3 "" H 6400 3350 50  0001 C CNN
@@ -1339,10 +1302,10 @@ F 3 "" H 6400 3350 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0147
 U 1 1 5BFED902
 P 6400 3450
-F 0 "#PWR?" H 6400 3200 50  0001 C CNN
+F 0 "#PWR0147" H 6400 3200 50  0001 C CNN
 F 1 "GND" H 6405 3277 50  0000 C CNN
 F 2 "" H 6400 3450 50  0001 C CNN
 F 3 "" H 6400 3450 50  0001 C CNN
@@ -1381,4 +1344,76 @@ Wire Wire Line
 Connection ~ 5700 900 
 Wire Wire Line
 	5700 900  6000 900 
+$Comp
+L Connector:DB9_Female_MountingHoles J4
+U 1 1 5C004D8E
+P 9700 2800
+F 0 "J4" H 9880 2803 50  0000 L CNN
+F 1 "Barcode scanner" V 10000 2300 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm" H 9700 2800 50  0001 C CNN
+F 3 " ~" H 9700 2800 50  0001 C CNN
+	1    9700 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0148
+U 1 1 5C0054AD
+P 9700 3400
+F 0 "#PWR0148" H 9700 3150 50  0001 C CNN
+F 1 "GND" H 9705 3227 50  0000 C CNN
+F 2 "" H 9700 3400 50  0001 C CNN
+F 3 "" H 9700 3400 50  0001 C CNN
+	1    9700 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0108
+U 1 1 5C0069B4
+P 9400 2400
+F 0 "#PWR0108" H 9400 2150 50  0001 C CNN
+F 1 "GND" H 9405 2227 50  0000 C CNN
+F 2 "" H 9400 2400 50  0001 C CNN
+F 3 "" H 9400 2400 50  0001 C CNN
+	1    9400 2400
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Screw_Terminal_01x02 J1
+U 1 1 5C007403
+P 1750 1600
+F 0 "J1" H 1670 1275 50  0000 C CNN
+F 1 "19-24V" V 1900 1550 50  0000 C CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" H 1750 1600 50  0001 C CNN
+F 3 "~" H 1750 1600 50  0001 C CNN
+	1    1750 1600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:Jumper JP2
+U 1 1 5C00CA36
+P 8750 5250
+F 0 "JP2" H 8750 5514 50  0000 C CNN
+F 1 "Jumper" H 8750 5423 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P25.40mm" H 8750 5250 50  0001 C CNN
+F 3 "~" H 8750 5250 50  0001 C CNN
+	1    8750 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9050 5250 9050 4950
+$Comp
+L Device:Jumper JP1
+U 1 1 5C00F01F
+P 4800 4400
+F 0 "JP1" H 4800 4664 50  0000 C CNN
+F 1 "Jumper" H 4800 4573 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P25.40mm" H 4800 4400 50  0001 C CNN
+F 3 "~" H 4800 4400 50  0001 C CNN
+	1    4800 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 4400 5400 4400
+Wire Wire Line
+	5400 4400 5400 4050
 $EndSCHEMATC
