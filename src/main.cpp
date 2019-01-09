@@ -6,6 +6,8 @@
 #include <TimerOne.h>
 #include <EEPROM.h>
 
+//#define DEBUG  //use this for serial debugging
+
 #define pinA 7
 #define pinB 8
 #define pinSw 6 //switch
@@ -36,6 +38,7 @@ const int blue = 10;
 const int yellow = 11;
 const int green = 12;
 const int buzzer = 13;
+
 //Barcode vars:
 String barcodeString;
 bool incommingBarcode = 0;
@@ -69,14 +72,21 @@ boxToBePacked box = {"1234567890123",
 int okToPack = 0;
 String S;
 bool runSwitchAgain = 0;
-//#include <EEpromStuff.h>
+
 void eepromStuff();
 
 void setup()
 {
 
   keyboard.begin(DataPin, IRQpin);
+
   Serial.begin(9600);
+#if defined(DEBUG)
+
+  Serial.print("Debugging enabled");
+
+#endif // debug
+
   lcd.init(); // initialize the lcd
   lcd.backlight();
   LCDDefults();
@@ -96,6 +106,7 @@ void setup()
   delay(50);
   EEPROM.get(eeAddr, box);
   delay(50);
+#if defined(DEBUG)
 
   Serial.print(F("Loading EEPROM index: "));
   Serial.println(eeAddr);
@@ -108,6 +119,7 @@ void setup()
 
   Serial.println(F("***Ready***"));
   Serial.println();
+#endif // debug
 
   //test2();
   //test();
@@ -116,6 +128,7 @@ void setup()
 
 void test()
 {
+#if defined(DEBUG)
   while (1 == 1)
   {
 
@@ -127,6 +140,7 @@ void test()
       delay(1000);
     }
   }
+#endif // debug
 }
 void loop()
 {
@@ -146,8 +160,9 @@ void loop()
 
     if (eeAddr < 0)
       eeAddr = 0;
-
+#if defined(DEBUG)
     Serial.println(S);
+#endif // debug
     lcd.setCursor(0, 1);
     lcd.print(S);
     lcd.print("   ");
@@ -211,7 +226,9 @@ This is the return results:
         if (i == 0) //we we are at max eeprom addr
         {
           runSwitchAgain = 0;
+#if defined(DEBUG)
           Serial.println(F("ItemID not stored"));
+#endif // debug
           lcd.clear();
           lcd.print("Barcode not stored");
           lights(3);
@@ -234,9 +251,11 @@ This is the return results:
       runSwitchAgain = 0;
       lcd.clear();
       lcd.print("No weight!");
+#if defined(DEBUG)
       Serial.println(F("no weight on the scale, or negative weight!"));
       Serial.print(currentWeight);
       Serial.println(F("Kg"));
+#endif // debug
       lights(1);
       lights(5);
       delay(1500);
@@ -278,7 +297,7 @@ String barcodeScanner()
   if (millis() - barcodeTimeSinceLastAvliable > 100 && done == 0)
   {
     done = 1;
-    keyboard.clear();
+   // keyboard.clear();
   }
 
   if (done == 1)
@@ -296,6 +315,7 @@ String barcodeScanner()
 
 void calScale()
 {
+#if defined(DEBUG)
   //Change this calibration factor as per your load cell once it is found you many need to vary it in thousands
   float calibration_factor = -271790; //-106600 worked for my 40Kg max scale setup
 
@@ -350,6 +370,7 @@ void calScale()
         scale.tare(); //Reset the scale to zero
     }
   }
+#endif // debug
 }
 
 void rotEnc()
@@ -359,16 +380,20 @@ void rotEnc()
   if (encPos != oldEncPos)
   {
     oldEncPos = encPos;
+#if defined(DEBUG)
     Serial.print(F("Encoder Value: "));
     Serial.println(encPos);
+#endif // debug
   }
 
   buttonState = encoder.getButton();
 
   if (buttonState != 0)
   {
+#if defined(DEBUG)
     Serial.print(F("Button: "));
     Serial.println(buttonState);
+#endif // debug
     switch (buttonState)
     {
     case ClickEncoder::Open: //0
@@ -437,7 +462,9 @@ This is the return results:
   if (strcmp(toBeMatched, box.itemID) == 0)
   //if (toBeMatched == box.itemID)
   {
+#if defined(DEBUG)
     Serial.println(F("We have a ID match"));
+#endif // debug
     //Does the weight match?
     /*     Serial.print(F("box.itemWeight: "));
     Serial.println(box.itemWeight, 3);
@@ -448,22 +475,28 @@ This is the return results:
     Serial.println(diff, 3);
     if (diff < 0.012 && diff > -0.012)
     {
+#if defined(DEBUG)
       Serial.println(F("we got a weight match"));
       Serial.println(F("All good!"));
       Serial.println();
+#endif // debug
 
       result = 1;
     }
     else
     {
       result = 2;
+#if defined(DEBUG)
       Serial.println(F("BAD weight match!"));
+#endif // debug
     }
   }
   else
   {
+#if defined(DEBUG)
     Serial.println(F("BAD ID match!"));
     Serial.println();
+#endif // debug
     result = 3;
   }
   Serial.println();
@@ -482,11 +515,13 @@ void eraseEEPROM()
 {
   lcd.clear();
   lcd.print("CLEARING EEPROM");
-  for (int i = 0; i < EEPROM.length(); i++)
+  for (unsigned int i = 0; i < EEPROM.length(); i++)
   {
     EEPROM.write(i, 0);
   }
+#if defined(DEBUG)
   Serial.println(F("Done with eeprom clear"));
+#endif // debug
   LCDDefults();
 }
 
@@ -507,25 +542,29 @@ bool loadNextBox()
   delay(1);
   EEPROM.get(eeAddr, box);
   delay(1);
-  /*   Serial.print(F("Loading EEPROM index: ");
+#if defined(DEBUG)
+   Serial.print(F("Loading EEPROM index: ");
   Serial.println(eeAddr);
   Serial.print(F("box.itemID: ");
   Serial.println(box.itemID);
   Serial.print(F("box.itemWeight: ");
   Serial.println(box.itemWeight, 3);
-  Serial.println();  */
+  Serial.println();
+#endif // debug
 
   return 1;
 }
 void eepromStuff()
 {
+#if defined(DEBUG)
   Serial.println(F("*****EEPROM stuff!*****"));
+#endif // debug
   // char toBeMatched[15];
   // bool maxeeprom = 0;
   //What to do here:
 
   //1. check if we have the barcode already. If yes: Update if no see 2.
-  //2. place id on first avalible adress. if all occypied: see 3.
+  //2. place id (barcode string) on first avalible EEadress. if all occypied: see 3.
   //3. let user decide witch program to overwrite.
 
   String Stemp = barcodeScanner(); //borde få "no" som svar.
@@ -552,27 +591,27 @@ void eepromStuff()
     {
     case 1:
       lcd.setCursor(0, 2);
-      lcd.print(" ");
+      lcd.print(F(" "));
       lcd.setCursor(0, 3);
-      lcd.print(" ");
+      lcd.print(F(" "));
       lcd.setCursor(0, 1);
-      lcd.print("*");
+      lcd.print(F("*"));
       break;
     case 2:
       lcd.setCursor(0, 1);
-      lcd.print(" ");
+      lcd.print(F(" "));
       lcd.setCursor(0, 3);
-      lcd.print(" ");
+      lcd.print(F(" "));
       lcd.setCursor(0, 2);
-      lcd.print("*");
+      lcd.print(F("*"));
       break;
     case 3:
       lcd.setCursor(0, 1);
-      lcd.print(" ");
+      lcd.print(F(" "));
       lcd.setCursor(0, 2);
-      lcd.print(" ");
+      lcd.print(F(" "));
       lcd.setCursor(0, 3);
-      lcd.print("*");
+      lcd.print(F("*"));
       break;
     default:
       break;
@@ -602,15 +641,19 @@ void eepromStuff()
 
 void EEPROMauto()
 {
+#if defined(DEBUG)
   Serial.println(F("*****EEPROMauto!*****"));
+#endif // debug
 
   bool maxeeprom = 0;
   char toBeMatched[15];
   String Stemp = barcodeScanner(); //borde få "no" som svar.
 
   lcd.clear();
-  lcd.print("Put weight and scan");
+  lcd.print(F("Put weight and scan"));
+#if defined(DEBUG)
   Serial.println(F("Waiting for scan"));
+#endif // debug
 
   while (Stemp == "no")
   {
@@ -618,20 +661,21 @@ void EEPROMauto()
     Stemp = barcodeScanner();
   }
   getWeight();
+#if defined(DEBUG)
   Serial.println(F("Got: "));
-
   Serial.print(F("barcode: "));
   Serial.println(Stemp);
   Serial.print(F("Weight: "));
   Serial.println(currentWeight);
+#endif // debug
 
   lcd.clear();
-  lcd.print(" Got barcode:");
+  lcd.print(F(" Got barcode:"));
   lcd.setCursor(0, 1);
   lcd.print(Stemp);
   Stemp.toCharArray(toBeMatched, Stemp.length());
   lcd.setCursor(0, 2);
-  lcd.print("Searching for match");
+  lcd.print(F("Searching for match"));
 
   int itemIDStoredState = 0;
   int itemIDStored = 0;
@@ -659,7 +703,7 @@ void EEPROMauto()
       if (itemIDStoredState == 4)
       {
         lcd.clear();
-        lcd.print("No Weight on scale");
+        lcd.print(F("No Weight on scale"));
         delay(3000);
         return;
       }
@@ -705,9 +749,11 @@ void EEPROMauto()
       // analyze what was sent:
       if (isAlphaNumeric(thisChar))
       {
-        Serial.print("boxID: ");
+#if defined(DEBUG)
+        Serial.print(F("boxID: "));
         Serial.println(box.itemID);
         Serial.println("it's alphanumeric");
+#endif // debug
         isAlphaNumer = 1;
       }
       else
@@ -718,7 +764,9 @@ void EEPROMauto()
 
       if (maxeeprom == 0)
       {
+#if defined(DEBUG)
         Serial.println("max eeprom ");
+#endif // debug
         delay(100);
         lcd.clear();
         lcd.print("No free program");
@@ -728,19 +776,20 @@ void EEPROMauto()
         break;
       }
     }
-
+#if defined(DEBUG)
     Serial.print("boxID: ");
     Serial.println(box.itemID);
     Serial.println(sizeof(box.itemID));
 
     Serial.print("eeaddr: ");
     Serial.println(eeAddr);
+#endif // debug
     Stemp.toCharArray(box.itemID, Stemp.length());
 
     box.itemWeight = currentWeight;
     delay(5);
     EEPROM.put(eeAddr, box);
-
+#if defined(DEBUG)
     Serial.print(F("Writing to eeprom at index:"));
     Serial.println(eeAddr);
 
@@ -751,11 +800,14 @@ void EEPROMauto()
     Serial.println();
 
     Serial.println(F("Reading from eeprom"));
+#endif // debug
     EEPROM.get(eeAddr, box);
+#if defined(DEBUG)
     Serial.print(F("box.itemID: "));
     Serial.println(box.itemID);
     Serial.print(F("box.itemWeight: "));
     Serial.println(box.itemWeight, 3);
+#endif // debug
 
     if (strcmp(toBeMatched, box.itemID) != 0)
     // if (Stemp != box.itemID)
@@ -773,12 +825,16 @@ void EEPROMauto()
 
       lcd.clear();
       lcd.print("update ok");
+#if defined(DEBUG)
       Serial.println(F("Eeprom looks good"));
+#endif // debug
     }
+#if defined(DEBUG)
     Serial.print(F("seize:"));
     Serial.println(sizeof(box));
 
     Serial.println(F("*****EEPROM done*****"));
+#endif // debug
     delay(1000);
     lcd.clear();
 
@@ -786,16 +842,18 @@ void EEPROMauto()
     return;
   }
   case 2:
+#if defined(DEBUG)
     Serial.println();
     Serial.print("Updating address: ");
     Serial.println(eeAddr);
+#endif // debug
 
     Stemp.toCharArray(box.itemID, Stemp.length());
 
     box.itemWeight = currentWeight;
     delay(5);
     EEPROM.put(eeAddr, box);
-
+#if defined(DEBUG)
     Serial.print(F("Writing to eeprom at index:"));
     Serial.println(eeAddr);
 
@@ -806,36 +864,49 @@ void EEPROMauto()
     Serial.println();
 
     Serial.println(F("Reading from eeprom"));
+#endif // debug
     EEPROM.get(eeAddr, box);
+#if defined(DEBUG)
     Serial.print(F("box.itemID: "));
     Serial.println(box.itemID);
     Serial.print(F("box.itemWeight: "));
     Serial.println(box.itemWeight);
+#endif // debug
 
     if (strcmp(toBeMatched, box.itemID) == 0)
     // if (Stemp != box.itemID)
     {
+#if defined(DEBUG)
       Serial.println(F("ID stored OK"));
+#endif // debug
     }
     else
+#if defined(DEBUG)
       Serial.println(F("ID not stored"));
+#endif // debug
 
     if (currentWeight != box.itemWeight)
     {
+#if defined(DEBUG)
       Serial.println(F("Weight not stored"));
+#endif // debug
     }
     else
     {
 
       lcd.clear();
       lcd.print("EEPROM write ok");
+#if defined(DEBUG)
       Serial.println(F("Eeprom looks good"));
+#endif // debug
       delay(1500);
     }
+#if defined(DEBUG)
     Serial.print(F("seize:"));
     Serial.println(sizeof(box));
 
     Serial.println(F("*****EEPROM done*****"));
+#endif // debug
     lcd.clear();
 
     LCDDefults();
@@ -846,7 +917,9 @@ void EEPROMauto()
 void EEPROMmanual()
 {
   int oldEEaddr = eeAddr;
+#if defined(DEBUG)
   Serial.println(F("*****EEPROMmanual!*****"));
+#endif // debug
 
   // bool maxeeprom = 0;
   char toBeMatched[15];
@@ -873,8 +946,10 @@ void EEPROMmanual()
     buttonState = encoder.getButton();
     if (buttonState != 0)
     {
+#if defined(DEBUG)
       Serial.print(F("Button: "));
       Serial.println(buttonState);
+#endif // debug
     }
     encPos += encoder.getValue();
     if (encPos < -1)
@@ -921,19 +996,22 @@ void EEPROMmanual()
       lcd.print("               ");
       lcd.setCursor(4, 2);
       lcd.print(box.itemWeight, 3);
-
+#if defined(DEBUG)
       Serial.print(F("eeaddr: : "));
       Serial.println(eeAddr);
       Serial.print(F("box.itemID: "));
       Serial.println(box.itemID);
       Serial.print(F("box.itemWeight: "));
       Serial.println(box.itemWeight);
+#endif // debug
       delay(50);
     }
   }
   if (encPos == -1)
   {
+    #if defined(DEBUG)
     Serial.println(F("Exit menu"));
+#endif // debug
 
     eeAddr = oldEEaddr;
     LCDDefults();
@@ -943,7 +1021,9 @@ void EEPROMmanual()
 
   lcd.clear();
   lcd.print("Put weight and scan");
+  #if defined(DEBUG)
   Serial.println(F("Waiting for scan"));
+#endif // debug
 
   while (Stemp == "no")
   {
@@ -951,12 +1031,14 @@ void EEPROMmanual()
     Stemp = barcodeScanner();
   }
   getWeight();
+  #if defined(DEBUG)
   Serial.println(F("Got: "));
 
   Serial.print(F("barcode: "));
   Serial.println(Stemp);
   Serial.print(F("Weight: "));
   Serial.println(currentWeight);
+#endif // debug
 
   lcd.clear();
   lcd.print(" Got barcode:");
@@ -969,11 +1051,12 @@ void EEPROMmanual()
   box.itemWeight = currentWeight;
   delay(5);
   EEPROM.put(eeAddr, box);
-
+#if defined(DEBUG)
   Serial.print(F("Writing to eeprom at index:"));
   Serial.println(eeAddr);
+#endif // debug
   EEPROM.get(eeAddr, box);
-
+#if defined(DEBUG)
   Serial.print(F("box.itemID: "));
   Serial.println(box.itemID);
   Serial.print(F("box.itemWeight: "));
@@ -981,35 +1064,46 @@ void EEPROMmanual()
   Serial.println();
 
   Serial.println(F("Reading from eeprom"));
+#endif // debug
   EEPROM.get(eeAddr, box);
+  #if defined(DEBUG)
   Serial.print(F("box.itemID: "));
   Serial.println(box.itemID);
   Serial.print(F("box.itemWeight: "));
   Serial.println(box.itemWeight);
+#endif // debug
 
   if (strcmp(toBeMatched, box.itemID) != 0)
   // if (Stemp != box.itemID)
   {
+    #if defined(DEBUG)
     Serial.println(F("ID not stored"));
+#endif // debug
   }
   else
 
       if (currentWeight != box.itemWeight)
   {
+    #if defined(DEBUG)
     Serial.println(F("Weight not stored"));
+#endif // debug
   }
   else
   {
 
     lcd.clear();
     lcd.print("EEPROM write ok");
+    #if defined(DEBUG)
     Serial.println(F("Eeprom looks good"));
+#endif // debug
     delay(1500);
   }
+  #if defined(DEBUG)
   Serial.print(F("seize:"));
   Serial.println(sizeof(box));
 
   Serial.println(F("*****EEPROM done*****"));
+#endif // debug
   lcd.clear();
 
   LCDDefults();
