@@ -6,14 +6,14 @@
 #include <TimerOne.h>
 #include <EEPROM.h>
 
-#define pinA A2
-#define pinB A0
-#define pinSw A1 //switch
+#define pinA 7
+#define pinB 8
+#define pinSw 6 //switch
 #define STEPS 4
 
 LiquidCrystal_I2C lcd(0x3F, 20, 4);
 PS2Keyboard keyboard;
-HX711 scale(8, 9); // parameter "gain" is ommited; the default value 128 is used by the library
+HX711 scale(4, 5); // parameter "gain" is ommited; the default value 128 is used by the library
 ClickEncoder encoder(pinA, pinB, pinSw, STEPS);
 
 String barcodeScanner();
@@ -26,8 +26,16 @@ bool loadNextBox();
 void eraseEEPROM();
 void EEPROMauto();
 void EEPROMmanual();
-
+void lights(int color);
 void test();
+
+//Pins:
+
+const int red = 9;
+const int blue = 10;
+const int yellow = 11;
+const int green = 12;
+const int buzzer = 13;
 //Barcode vars:
 String barcodeString;
 bool incommingBarcode = 0;
@@ -61,7 +69,7 @@ boxToBePacked box = {"1234567890123",
 int okToPack = 0;
 String S;
 bool runSwitchAgain = 0;
-#include <EEpromStuff.h>
+//#include <EEpromStuff.h>
 void eepromStuff();
 
 void setup()
@@ -72,6 +80,11 @@ void setup()
   lcd.init(); // initialize the lcd
   lcd.backlight();
   LCDDefults();
+  pinMode(red, OUTPUT);
+  pinMode(blue, OUTPUT);
+  pinMode(green, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(buzzer, OUTPUT);
 
   //calScale();
   scale.set_scale(-271790.f); // this value is obtained by calibrating the scale with known weights; see the README for details
@@ -79,6 +92,7 @@ void setup()
   Timer1.initialize(1000);
   Timer1.attachInterrupt(timerIsr);
   encoder.setAccelerationEnabled(true);
+
   delay(50);
   EEPROM.get(eeAddr, box);
   delay(50);
@@ -96,12 +110,23 @@ void setup()
   Serial.println();
 
   //test2();
-  test();
+  //test();
   // eepromStuff();
 }
 
 void test()
 {
+  while (1 == 1)
+  {
+
+    for (size_t i = 1; i < 6; i++)
+    {
+      lights(i);
+      delay(1000);
+      lights(0);
+      delay(1000);
+    }
+  }
 }
 void loop()
 {
@@ -139,13 +164,23 @@ This is the return results:
 3 ID match is bad
 4 no weight on the scale, or negative weight
   */
+
+      /* 
+    lights() function truth table:
+     1.red
+  2.blue
+  3.yellow
+  4.green
+  5.buzzer */
+
     case 1:
       runSwitchAgain = 0;
       lcd.clear();
       lcd.print("ALL GOOD!");
       Serial.println();
-
-      delay(1000);
+      lights(4);
+      delay(700);
+      lights(0);
       LCDDefults();
 
       break;
@@ -154,10 +189,19 @@ This is the return results:
       lcd.clear();
       lcd.print("BAD WEIGHT!");
       Serial.println();
+      lights(1);
+      lights(5);
+      delay(700);
+      lights(0);
 
-      delay(1000);
+      delay(500);
+      lights(1);
+      lights(5);
+      delay(700);
+      lights(0);
       LCDDefults();
       break;
+
     case 3: //here we start to loop though the eeprom to find the correct ID
       eeAddr = -20;
       while (okToPack == 3) //3 = no id match
@@ -170,7 +214,13 @@ This is the return results:
           Serial.println(F("ItemID not stored"));
           lcd.clear();
           lcd.print("Barcode not stored");
+          lights(3);
           delay(1500);
+          lights(0);
+          delay(500);
+          lights(3);
+          delay(1500);
+          lights(0);
           LCDDefults();
           return;
         }
@@ -187,7 +237,10 @@ This is the return results:
       Serial.println(F("no weight on the scale, or negative weight!"));
       Serial.print(currentWeight);
       Serial.println(F("Kg"));
+      lights(1);
+      lights(5);
       delay(1500);
+      lights(0);
       LCDDefults();
       break;
 
@@ -961,4 +1014,46 @@ void EEPROMmanual()
 
   LCDDefults();
   return;
+}
+
+void lights(int color)
+{
+
+  /*  1.red
+  2.blue
+  3.yellow
+  4.green
+  5.buzzer */
+  int state = color;
+  switch (state)
+  {
+  case 1:
+    digitalWrite(red, HIGH);
+
+    break;
+  case 2:
+    digitalWrite(blue, HIGH);
+    break;
+  case 3:
+    digitalWrite(yellow, HIGH);
+    break;
+  case 4:
+    digitalWrite(green, HIGH);
+    break;
+  case 5:
+    digitalWrite(buzzer, HIGH);
+    break;
+
+  case 0:
+    digitalWrite(red, LOW);
+    digitalWrite(blue, LOW);
+    digitalWrite(yellow, LOW);
+    digitalWrite(green, LOW);
+    digitalWrite(buzzer, LOW);
+    break;
+
+  default:
+
+    break;
+  }
 }
